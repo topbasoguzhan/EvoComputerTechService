@@ -9,6 +9,7 @@ namespace EvoComputerTechService.MapperProfiles
         public AccountProfile()
         {
             CreateMap<ApplicationUser, UserProfileViewModel>().ReverseMap();
+            //CreateMap<ApplicationUser, UserProfileViewModel>();
         }
     }
 }
