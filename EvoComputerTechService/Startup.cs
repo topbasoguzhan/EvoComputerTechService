@@ -1,4 +1,5 @@
 using EvoComputerTechService.Data;
+using EvoComputerTechService.Extensions;
 using EvoComputerTechService.MapperProfiles;
 using EvoComputerTechService.Models.Identity;
 using EvoComputerTechService.Services;
@@ -51,20 +52,14 @@ namespace EvoComputerTechService
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
 
-            services.AddAutoMapper(options =>
-            {
-                options.AddProfile(typeof(AccountProfile));
-            });
-
-            services.AddTransient<IEmailSender, EmailSender>();
-
+            services.AddApplicationServices(this.Configuration);
             services.AddControllersWithViews();
         }
 

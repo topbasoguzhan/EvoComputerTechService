@@ -1,4 +1,5 @@
-﻿using EvoComputerTechService.Models.Identity;
+﻿using EvoComputerTechService.Models.Entities;
+using EvoComputerTechService.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,5 +11,6 @@ namespace EvoComputerTechService.Data
         {
 
         }
+        public DbSet<Issue> Issues { get; set; }
     }
 }

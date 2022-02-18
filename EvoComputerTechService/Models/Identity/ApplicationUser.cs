@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EvoComputerTechService.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EvoComputerTechService.Models.Identity
@@ -11,5 +13,6 @@ namespace EvoComputerTechService.Models.Identity
         [StringLength(50)]
         public string Surname { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public virtual List<Issue> Issues { get; set; }
     }
 }
