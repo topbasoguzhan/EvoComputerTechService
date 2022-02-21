@@ -7,7 +7,7 @@ namespace EvoComputerTechService.Models.Entities
     {
         [Key]
         public Guid Id { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         [StringLength(128)]
         public string CreatedUser { get; set; }
         public DateTime? UpdatedDate { get; set; }

@@ -8,10 +8,10 @@ namespace EvoComputerTechService.Models.Entities
     {
         public string IssueName { get; set; }
         public string Description { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public string AddressDetail { get; set; }
-        public IssueStates IssueStates { get; set; }
+        public IssueStates IssueState { get; set; }
         [StringLength(450)]
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
