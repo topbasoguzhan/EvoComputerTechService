@@ -17,9 +17,10 @@ namespace EvoComputerTechService.Extensions
         public Task BindModelAsync(ModelBindingContext bindingContext)//Bu işlem şöyle gerçekleşmektedir: DefaultModelBinder action metodun aldığı parametre tipinden bir nesne oluşturarak Property’lerini view sayfasından gelen form bilgileri ile eşleştirerek doldurmaktadır.
         {
             var loadOptions = new DataSourceLoadOptions();
-            DataSourceLoadOptionsParser.Parse(loadOptions,
-                key => bindingContext.ValueProvider.GetValue(key).FirstOrDefault());
+            DataSourceLoadOptionsParser.Parse(loadOptions, key => bindingContext.ValueProvider.GetValue(key).FirstOrDefault());
+
             bindingContext.Result = ModelBindingResult.Success(loadOptions);
+            
             return Task.CompletedTask;
         }
     }

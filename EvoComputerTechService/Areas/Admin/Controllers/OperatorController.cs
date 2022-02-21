@@ -2,7 +2,7 @@
 
 namespace EvoComputerTechService.Areas.Admin.Controllers
 {
-    public class ManageController : Controller
+    public class OperatorController : OperatorBaseController
     {
         public IActionResult Index()
         {

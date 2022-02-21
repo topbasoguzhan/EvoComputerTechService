@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 
@@ -44,7 +45,7 @@ namespace EvoComputerTechService
                 options.Password.RequiredLength = 5;
 
                 options.Lockout.MaxFailedAccessAttempts = 3;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.AllowedForNewUsers = false;
 
                 options.User.RequireUniqueEmail = true;
@@ -63,7 +64,12 @@ namespace EvoComputerTechService
             });
 
             services.AddApplicationServices(this.Configuration);
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+            .AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -82,7 +88,7 @@ namespace EvoComputerTechService
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
-                RequestPath = new PathString("/vendors")
+                RequestPath = new PathString("/vendor")
             });
 
             app.UseRouting();
@@ -92,7 +98,13 @@ namespace EvoComputerTechService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute("default", "admin", "admin/{controller=Manage}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute("default", "admin", "admin/{controller=Admin}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute("default", "operator", "operator/{controller=Operator}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute("default", "technician", "technician/{controller=Technician}/{action=Index}/{id?}");
+
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

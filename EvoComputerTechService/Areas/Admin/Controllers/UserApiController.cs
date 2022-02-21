@@ -1,9 +1,14 @@
-﻿using EvoComputerTechService.Models.Identity;
+﻿using DevExtreme.AspNet.Data;
+using EvoComputerTechService.Extensions;
+using EvoComputerTechService.Models.Identity;
 using EvoComputerTechService.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EvoComputerTechService.Areas.Admin.Controllers
 {
@@ -18,15 +23,13 @@ namespace EvoComputerTechService.Areas.Admin.Controllers
         {
             _userManager = userManager;
         }
-        [HttpGet]
-        public IActionResult GetUsers()
-        {
-            var users = _userManager.Users.OrderBy(x=>x.CreatedDate).ToList();
 
-            return Ok(new JsonResponseViewModel()
-            {
-                Data = users
-            });
+        [HttpGet]
+        public IActionResult GetUsers(DataSourceLoadOptions loadOptions)
+        {
+            var data = _userManager.Users;
+
+            return Ok(DataSourceLoader.Load(data, loadOptions));
         }
     }
 }
