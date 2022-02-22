@@ -11,12 +11,18 @@
     <link href="~/admin-assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/admin-assets/assets/css/plugins.css" rel="stylesheet" type="text/css" />
 
-    
-
-
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link href="~/admin-assets/assets/css/ecommerce/product-catalog.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/vendors/themify-icon/themify-icons.css">
+    <link rel="stylesheet" href="~/vendors/simple-line-icon/simple-line-icons.css">
+    <link rel="stylesheet" href="~/vendors/font-awesome/css/all.css">
+    <link rel="stylesheet" href="~/vendors/flaticon/flaticon.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/vendors/animation/animate.css">
+    <link rel="stylesheet" href="~/vendors/magnify-pop/magnific-popup.css">
+    <link rel="stylesheet" href="~/vendors/elagent/style.css">
+    <link rel="stylesheet" href="~/vendors/scroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
 
 
 
@@ -33,6 +39,7 @@
     <!-- Tab Mobile View Header -->
     <!--  BEGIN NAVBAR  -->
     <partial name="Partials/_navbar" />
+
     <!--  END NAVBAR  -->
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
@@ -45,13 +52,30 @@
 
         <partial name="Partials/_begin-main" />
 
+
         <!--  END SIDEBAR  -->
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
             <div class="container">
-                <br />
+                <div class="page-header">
+                    <div class="page-title">
+                        <h3>Blank Page</h3>
+                        <div class="crumbs">
+                            <ul id="breadcrumbs" class="breadcrumb">
+                                <li><a href="index.html"><i class="flaticon-home-fill"></i></a></li>
+                                <li><a href="#">Pages</a></li>
+                                <li class="active"><a href="#">Blank Page</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- CONTENT AREA -->
+
+
                 @RenderBody()
+
 
                 <!-- CONTENT AREA -->
 
@@ -74,19 +98,38 @@
     <script src="~/admin-assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/admin-assets/plugins/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/admin-assets/assets/js/app.js"></script>
-
-
-
-
-
     <script>
         $(document).ready(function () {
             App.init();
         });
     </script>
-
-
     <script src="~/admin-assets/assets/js/custom.js"></script>
+
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/propper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/vendors/wow/wow.min.js"></script>
+    <script src="~/vendors/sckroller/jquery.parallax-scroll.js"></script>
+    <script src="~/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="~/vendors/isotope/isotope-min.js"></script>
+    <script src="~/vendors/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/vendors/counterup/jquery.counterup.min.js"></script>
+    <script src="~/vendors/counterup/jquery.waypoints.min.js"></script>
+    <script src="~/vendors/counterup/appear.js"></script>
+    <script src="~/vendors/circle-progress/circle-progress.js"></script>
+    <script src="~/vendors/stellar/jquery.stellar.js"></script>
+    <script src="~/vendors/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/vendors/red-countdown/knob.js"></script>
+    <script src="~/vendors/red-countdown/throttle.js"></script>
+    <script src="~/vendors/red-countdown/moment.js"></script>
+    <script src="~/vendors/red-countdown/redcountdown.js"></script>
+    <script src="~/vendors/red-countdown/red-countdown-settings.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 
@@ -95,4 +138,3 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 </body>
 </html>
-

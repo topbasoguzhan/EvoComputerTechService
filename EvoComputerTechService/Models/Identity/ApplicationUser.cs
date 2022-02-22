@@ -13,6 +13,7 @@ namespace EvoComputerTechService.Models.Identity
         [StringLength(50)]
         public string Surname { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public bool IsDeleted { get; set; } = false;
         public virtual List<Issue> Issues { get; set; }
     }
 }
