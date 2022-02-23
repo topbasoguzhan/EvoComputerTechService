@@ -1,8 +1,11 @@
 ﻿using EvoComputerTechService.Data;
+using EvoComputerTechService.Models.Entities;
 using EvoComputerTechService.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EvoComputerTechService.Areas.Admin.Controllers
@@ -24,21 +27,61 @@ namespace EvoComputerTechService.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AllIssues()
+        public IActionResult WaitingIssues()
         {
-            var allIssues = _dbContext.Issues.ToList();
-            return View(allIssues);
+            var waitingIssues = _dbContext.Issues.Where(x=>x.IssueState == IssueStates.Beklemede).ToList();
+            return View(waitingIssues);
         }
 
         [HttpGet]
         public IActionResult IssueDetail(Guid id)
         {
-            var issue = _dbContext.Issues.Find(id);
-            if (issue == null)
-            {
+            var activeIssues = _dbContext.Issues.Where(x => x.IssueState == IssueStates.Islemde).ToList();
+            
+            return View(activeIssues);
+        }
 
+        [HttpGet]
+        public IActionResult AssignedIssues()
+        {
+            var assignedIssues = _dbContext.Issues.Where(x => x.IssueState == IssueStates.Atandi).ToList();
+
+            return View(assignedIssues);
+        }
+
+        [HttpGet]
+        public IActionResult CompletedIssues()
+        {
+            var completedIssues = _dbContext.Issues.Where(x => x.IssueState == IssueStates.Tamamlandi).ToList();
+
+            return View(completedIssues);
+        }
+
+        [HttpGet]
+        public IActionResult AssignTechnician(Guid id)
+        {
+            var Technicians = new List<SelectListItem>();
+            var x = _userManager.GetUsersInRoleAsync("Technician").Result;
+            var users = x.OfType<ApplicationUser>();
+
+            foreach (var item in users)
+            {
+                Technicians.Add(new SelectListItem
+                {
+                    Text = $"{item.Name} {item.Surname}",
+                    Value = item.Id.ToString()
+                });
             }
-            return View(issue);
+
+            ViewBag.Technicians = Technicians;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AssignTechnician(string[] Technician)
+        {
+            return View();
         }
     }
 }
