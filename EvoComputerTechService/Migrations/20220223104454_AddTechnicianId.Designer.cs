@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvoComputerTechService.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20220223070412_deneme")]
-    partial class deneme
+    [Migration("20220223104454_AddTechnicianId")]
+    partial class AddTechnicianId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

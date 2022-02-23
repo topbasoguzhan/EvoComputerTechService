@@ -60,6 +60,7 @@ namespace EvoComputerTechService.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AssignTechnician(Guid id)
         {
+            var issue = _dbContext.Issues.Find(id);
             var Technicians = new List<SelectListItem>();
             var x = _userManager.GetUsersInRoleAsync("Technician").Result;
             var users = x.OfType<ApplicationUser>();
@@ -75,13 +76,19 @@ namespace EvoComputerTechService.Areas.Admin.Controllers
 
             ViewBag.Technicians = Technicians;
 
-            return View();
+            return View(issue);
         }
 
         [HttpPost]
-        public IActionResult AssignTechnician(string[] Technician)
+        public IActionResult AssignTechnician(string[] Technician, Guid id)
         {
-            return View();
+            var issue = _dbContext.Issues.Find(id);
+            issue.TechnicianId = Technician[0];
+            issue.IssueState = IssueStates.Atandi;
+
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("AssignedIssues");
         }
     }
 }
