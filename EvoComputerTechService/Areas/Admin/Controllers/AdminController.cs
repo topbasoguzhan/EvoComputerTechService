@@ -26,6 +26,10 @@ namespace EvoComputerTechService.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult Products()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> RoleAssign(string id)
         {
