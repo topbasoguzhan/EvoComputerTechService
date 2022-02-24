@@ -1,5 +1,4 @@
 ﻿using EvoComputerTechService.Models.Identity;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +21,6 @@ namespace EvoComputerTechService.Models.Entities
         public virtual ApplicationUser User { get; set; }
         [ForeignKey(nameof(TechnicianId))]
         public virtual ApplicationUser Technician { get; set; }
-        public virtual List<IssueProducts> IssueProducts { get; set; }
 
     }
     public enum IssueStates

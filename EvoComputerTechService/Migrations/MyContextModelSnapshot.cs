@@ -74,47 +74,6 @@ namespace EvoComputerTechService.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("EvoComputerTechService.Models.Entities.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<Guid>("IssueId")
-                        .HasMaxLength(450)
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasPrecision(8, 2)
-                        .HasColumnType("decimal(8,2)");
-
-                    b.Property<string>("ProductDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedUser")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IssueId");
-
-                    b.ToTable("Products");
-                });
-
             modelBuilder.Entity("EvoComputerTechService.Models.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -344,17 +303,6 @@ namespace EvoComputerTechService.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EvoComputerTechService.Models.Entities.Product", b =>
-                {
-                    b.HasOne("EvoComputerTechService.Models.Entities.Issue", "Issue")
-                        .WithMany("Products")
-                        .HasForeignKey("IssueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Issue");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("EvoComputerTechService.Models.Identity.ApplicationRole", null)
@@ -404,11 +352,6 @@ namespace EvoComputerTechService.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EvoComputerTechService.Models.Entities.Issue", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("EvoComputerTechService.Models.Identity.ApplicationUser", b =>
