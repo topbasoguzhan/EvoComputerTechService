@@ -23,6 +23,10 @@ namespace EvoComputerTechService.Data
                 .HasPrecision(8, 2);
 
             builder.Entity<IssueProducts>()
+                .Property(x => x.Price)
+                .HasPrecision(8, 2);
+
+            builder.Entity<IssueProducts>()
                 .HasKey(x => new { x.IssueId, x.ProductId }); //Composite Key
             
             //builder.Entity<Issue>()
