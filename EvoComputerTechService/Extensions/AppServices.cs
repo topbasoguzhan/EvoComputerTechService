@@ -12,10 +12,13 @@ namespace EvoComputerTechService.Extensions
         {
             services.AddAutoMapper(options =>
             {
-                options.AddProfile(typeof(AccountProfile));
+                options.AddProfile(typeof(PaymentProfile));
             });
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IPaymentService, IyzicoPaymentService>();
+
+
             return services;
         }
 
