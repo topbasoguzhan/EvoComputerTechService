@@ -202,10 +202,12 @@ namespace EvoComputerTechService.Controllers
             //{
             //    Email = user.Email,
             //    Name = user.Name,
-            //    Surname = user.Surname,
+            //    Surname = user.Surname
             //};
-            
+
+            //ApplicationUser - UserProfileViewModel mapping
             var model = _mapper.Map<UserProfileViewModel>(user);
+           
             return View(model);
         }
 
