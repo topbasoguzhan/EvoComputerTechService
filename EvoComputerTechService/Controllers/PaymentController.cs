@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EvoComputerTechService.Data;
 using EvoComputerTechService.Extensions;
+using EvoComputerTechService.Models.Entities;
 using EvoComputerTechService.Models.Identity;
 using EvoComputerTechService.Models.Payment;
 using EvoComputerTechService.Services;
@@ -125,9 +126,9 @@ namespace EvoComputerTechService.Controllers
         [HttpPost]
         public async Task<IActionResult> Purchase(PaymentViewModel model)
         {
-            var type = _dbContext.Issues.Find(Guid.Parse(model.BasketModel.Id));
+            var issue = _dbContext.Issues.Find(Guid.Parse(model.BasketModel.Id));
 
-            if (type == null)
+            if (issue == null)
             {
                 //Doldur
                 return RedirectToAction("");
@@ -135,7 +136,7 @@ namespace EvoComputerTechService.Controllers
 
             var productInIssue = _dbContext.IssueProducts
                 .Include(x => x.Product)
-                .Where(x => x.IssueId == type.Id)
+                .Where(x => x.IssueId == issue.Id)
                 .ToList();
 
             foreach (var item in productInIssue)
@@ -146,10 +147,10 @@ namespace EvoComputerTechService.Controllers
 
             var basketModel = new BasketModel()
             {
-                Category1 = type.IssueName,
+                Category1 = issue.IssueName,
                 ItemType = BasketItemType.VIRTUAL.ToString(),
-                Id = type.Id.ToString(),
-                Name = type.IssueName,
+                Id = issue.Id.ToString(),
+                Name = issue.IssueName,
                 Price = totalPrice.ToString(new CultureInfo("en-us"))
             };
 
@@ -200,6 +201,12 @@ namespace EvoComputerTechService.Controllers
             paymentModel.PaidPrice = decimal.Parse(installmentNumber != null ? installmentNumber.TotalPrice : installmentInfo.InstallmentPrices[0].TotalPrice);
 
             var result = _paymentService.Pay(paymentModel);
+
+            if (result.Status == "success")
+            {
+                issue.IssueState = IssueStates.Odendi;
+                _dbContext.SaveChanges();
+            }
             return View();
         }
     }
