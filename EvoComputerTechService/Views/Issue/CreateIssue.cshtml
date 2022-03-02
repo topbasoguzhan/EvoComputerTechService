@@ -1,21 +1,23 @@
 ﻿@using EvoComputerTechService.Models.Entities
 @model Issue
-@{ ViewBag.Title = "Arıza Kayıt"; }
+@{
+    ViewBag.Title = "Arıza Kayıt";
+}
 
 
 
 <section class="breadcrumb_area">
-        <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
-        <div class="container">
-            <div class="breadcrumb_content text-center">
-                <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Contac Us</h1>
-                <p class="f_400 w_color f_size_16 l_height26">
-                    Why I say old chap that is spiffing off his nut arse
-                    pear shaped plastered<br> Jeffrey bodge barney some dodgy.!!
-                </p>
-            </div>
+    <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
+    <div class="container">
+        <div class="breadcrumb_content text-center">
+            <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Contac Us</h1>
+            <p class="f_400 w_color f_size_16 l_height26">
+                Why I say old chap that is spiffing off his nut arse
+                pear shaped plastered<br> Jeffrey bodge barney some dodgy.!!
+            </p>
         </div>
-    </section>
+    </div>
+</section>
 
 <section class="contact_info_area sec_pad bg_color">
     <div class="container">
@@ -89,59 +91,66 @@
 </section>
 
 @section Styles {
-    <style>
-        #map {
-            height: 450px;
-            width: 100%;
-            position: absolute;
-        }
-    </style>
+<style>
+    #map {
+        height: 450px;
+        width: 100%;
+        position: absolute;
+    }
+</style>
 }
 
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?key=Your_Api_Key&callback=initMap&v=weekly"
-            async></script>
-    <script>
-        var map = null;
-        var marker = null;
-        function addMarker(position) {
-            const marker = new google.maps.Marker({
-                position,
-                map,
-            });
-        }
-        function initMap() {
-            console.log("Harita Yüklendi.");
-            const myLatlng = { lat: 41.0441, lng: 29.0067 };
-            map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 16,
-                center: myLatlng,
-                mapTypeId: "terrain"
-            });
-            map.addListener("click", (mapsMouseEvent) => {
-                console.log("Tıklandı");
-                console.log(mapsMouseEvent);
-                if (marker == null) {
-                    marker = new google.maps.Marker({
-                        position: mapsMouseEvent.latLng,
-                        map: map
-                    });
-                    marker.getTitle(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-                }
-                else {
-                    marker.setMap(null);
-                    marker = new google.maps.Marker({
-                        position: mapsMouseEvent.latLng,
-                        map: map,
-                    });
-                }
-                document.getElementById("lat").value = mapsMouseEvent.latLng.lat();
-                document.getElementById("lng").value = mapsMouseEvent.latLng.lng();
-                console.log("Enlem: " + mapsMouseEvent.latLng.lat());
-                console.log("Boylam: " + mapsMouseEvent.latLng.lng());
-                marker.getTitle(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
-            });
-        }
+    @inject IConfiguration configuration
+    @{
+        string key = configuration.GetSection("MapKey")["Key"];
+        string src = "https://maps.googleapis.com/maps/api/js?key=" + key + "&callback=initMap&v=weekly";
+    }
+
+    <script src=@src async>
     </script>
+        async></script>
+<script>
+    var map = null;
+    var marker = null;
+    function addMarker(position) {
+        const marker = new google.maps.Marker({
+            position,
+            map,
+        });
+    }
+    function initMap() {
+        console.log("Harita Yüklendi.");
+        const myLatlng = { lat: 41.0441, lng: 29.0067 };
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+            center: myLatlng,
+            mapTypeId: "terrain"
+        });
+        map.addListener("click", (mapsMouseEvent) => {
+            console.log("Tıklandı");
+            console.log(mapsMouseEvent);
+            if (marker == null) {
+                marker = new google.maps.Marker({
+                    position: mapsMouseEvent.latLng,
+                    map: map
+                });
+                marker.getTitle(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
+            }
+            else {
+                marker.setMap(null);
+                marker = new google.maps.Marker({
+                    position: mapsMouseEvent.latLng,
+                    map: map,
+                });
+            }
+            document.getElementById("lat").value = mapsMouseEvent.latLng.lat();
+            document.getElementById("lng").value = mapsMouseEvent.latLng.lng();
+            console.log("Enlem: " + mapsMouseEvent.latLng.lat());
+            console.log("Boylam: " + mapsMouseEvent.latLng.lng());
+            marker.getTitle(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2))
+        });
+    }
+</script>
 
 }

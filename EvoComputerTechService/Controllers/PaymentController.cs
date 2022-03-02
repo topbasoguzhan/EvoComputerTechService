@@ -207,7 +207,7 @@ namespace EvoComputerTechService.Controllers
                 issue.IssueState = IssueStates.Odendi;
                 _dbContext.SaveChanges();
             }
-            return View();
+            return RedirectToAction("GetIssues", "Issue");
         }
     }
 }

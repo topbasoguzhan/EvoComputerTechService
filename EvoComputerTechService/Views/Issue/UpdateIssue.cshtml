@@ -1,4 +1,5 @@
-﻿@model Issue
+﻿@using Microsoft.Extensions.Configuration
+@model Issue
 
 <section class="breadcrumb_area">
     <img class="breadcrumb_shap" src="~/img/breadcrumb/banner_bg.png" alt="">
@@ -100,8 +101,14 @@
 }
 
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?key=Your_Api_Key&callback=initMap&v=weekly"
-            async></script>
+    @inject IConfiguration configuration
+    @{
+        string key = configuration.GetSection("MapKey")["Key"];
+        string src = "https://maps.googleapis.com/maps/api/js?key=" + key + "&callback=initMap&v=weekly";
+    }
+
+    <script src=@src async>
+    </script>
     <script>
         var map = null;
         var marker = null;

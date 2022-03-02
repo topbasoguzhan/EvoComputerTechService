@@ -31,6 +31,7 @@ namespace EvoComputerTechService.Models.Entities
         Atandi,
         Islemde,
         Tamamlandi,
-        Odendi
+        Odendi,
+        Kuyrukta
     }
 }
