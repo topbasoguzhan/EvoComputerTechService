@@ -12,6 +12,7 @@ namespace EvoComputerTechService.Models.Entities
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string AddressDetail { get; set; }
+        public string IssuePicture { get; set; }
         public IssueStates IssueState { get; set; }
         [StringLength(450)]
         public string TechnicianId { get; set; }
