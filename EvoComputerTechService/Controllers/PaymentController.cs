@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EvoComputerTechService.Data;
 using EvoComputerTechService.Extensions;
+using EvoComputerTechService.Models;
 using EvoComputerTechService.Models.Entities;
 using EvoComputerTechService.Models.Identity;
 using EvoComputerTechService.Models.Payment;
@@ -26,9 +27,10 @@ namespace EvoComputerTechService.Controllers
         private readonly MyContext _dbContext;
         private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
         private decimal totalPrice;
 
-        public PaymentController(IPaymentService paymentService, MyContext dbContext, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public PaymentController(IPaymentService paymentService, MyContext dbContext, IMapper mapper, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
             _paymentService = paymentService;
             _dbContext = dbContext;
@@ -37,6 +39,7 @@ namespace EvoComputerTechService.Controllers
             var cultureInfo = CultureInfo.GetCultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            _emailSender = emailSender;
         }
 
         [Authorize]
@@ -206,6 +209,15 @@ namespace EvoComputerTechService.Controllers
             {
                 issue.IssueState = IssueStates.Odendi;
                 _dbContext.SaveChanges();
+
+                var emailMessage = new EmailMessage()
+                {
+                    Contacts = new string[] { "topbasoguzhan03@gmail.com" },
+                    Body = $"Ödemeniz başarılı bir şekilde gerçekleşmiştir.",
+                    Subject = "Ödeme Geri Bildirimi"
+                };
+
+                await _emailSender.SendAsync(emailMessage);
             }
             return RedirectToAction("GetIssues", "Issue");
         }
